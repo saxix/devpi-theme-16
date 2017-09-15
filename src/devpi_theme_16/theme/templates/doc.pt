@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>${title}</title>
+        <metal:head use-macro="request.macros['head']" />
+        <script src="${request.static_url('devpi_web:static/docview.js')}"></script>
+    </head>
+<!--?<body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">-->
+    <body style="position: static">
+    <metal:header use-macro="request.macros['header']" />
+    <metal:nav use-macro="request.macros['navigation']" />
+        <div class="iframe">
+            <iframe
+                    style="top:40px"
+                src="${url}" data-base_url="${base_url}" data-baseview_url="${baseview_url}"
+                width="100%" height="100%" scrolling="yes"
+                onload="onIFrameLoad(this)">
+            </iframe>
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+            // make keyboard actions affect the actual documentation
+            // in the iframe by default
+            $(window).load(function () {
+                $('iframe')[0].contentWindow.focus();
+            });
+        //]]>
+        </script>
+    </body>
+</html>

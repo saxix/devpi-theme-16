@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+        <title>devpi - Not Found</title>
+        <metal:head use-macro="request.macros['head']" />
+    </head>
+    <body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+    <metal:header use-macro="request.macros['header']"/>
+        <metal:nav use-macro="request.macros['navigation']" />
+        <div id="content">
+            <h1>Not Found</h1>
+            <p>The following resource could not be found:</p>
+            <p>${msg}</p>
+        </div>
+        <metal:footer use-macro="request.macros['footer']" />
+    </body>
+</html>

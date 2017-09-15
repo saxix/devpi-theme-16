@@ -1,0 +1,77 @@
+<metal:head define-macro="headcss" use-macro="request.macros['original-headcss']" xmlns="http://www.w3.org/1999/html">
+    <metal:mycss fill-slot="headcss">
+        <link rel="stylesheet" type="text/css" href="${request.theme_static_url('css/16.css')}"/>
+    </metal:mycss>
+</metal:head>
+<metal:footer define-macro="footer" use-macro="request.macros['original-footer']">
+    <metal:mycss fill-slot="footer">
+        <!-- using the example request method -->
+        <!--?<p>Page generated <span class="timestamp">${request.generated_at}</span></p>&nbsp;-->
+    </metal:mycss>
+</metal:footer>
+
+<metal:header define-macro="header">
+    <header id="navbar" role="banner" class="navbar navbar-fixed-top navbar-default container-fluid">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="name navbar-brand" href="/" title="Home">devpi</a>
+            </div>
+        <!--?<metal:status use-macro="request.macros['status']"/>-->
+        </div>
+    </header>
+</metal:header>
+<metal:nav define-macro="navigation">
+    <div id="breadcrumb-wrapper">
+        <div class="breadcrumb-container container">
+            <ol class="breadcrumb">
+                <li><a href="/" class="active">Home</a></li>
+                <li tal:condition="info|None">server status</li>
+                <li tal:condition="user|None"><a href="/${user.name}">${user.name}</a></li>
+                <li tal:condition="index|None"><a href="/${user.name}/${index}">${index}</a></li>
+                <li tal:condition="project|None"><a href="${project_url}">${project|None}</a></li>
+                <li tal:condition="version|None"><a href="${version_url}">${version|None}</a></li>
+                <!--?<li tal:condition="version|None">${version|None}</li>-->
+                <li tal:condition="toxresult|None">tox</li>
+            </ol>
+            <div class="search-bar">
+                <form action="${request.route_url('search')}" method="get"
+                      accept-charset="UTF-8">
+                    <label for="edit-search-api-views-fulltext">
+                        Search </label>
+                    <div class="views-widget">
+                        <div class="form-item form-item-search-api-views-fulltext form-type-textfield form-group">
+                            <input class="form-control form-text" type="text"
+                                   name="query"
+                                   autofocus tal:attributes="value query|None"
+                                   size="30" maxlength="128" placeholder="Search"></div>
+                    </div>
+                    <!--?</div>-->
+                    <div class="views-exposed-widget views-submit-button">
+                        <button type="submit" id="edit-submit-wfp-it-search" name="" value="Apply"
+                                class="btn btn-info form-submit">?
+                        </button>
+                        <a href="${request.route_url('search_help')}">help</a>
+                    </div>
+                </form>
+                <!--?<span class="help">-->
+                <!--?<a href="${request.route_url('search_help')}">help</a>-->
+                <!--?</span>-->
+            </div>
+        </div>
+    </div>
+</metal:nav>
+
+
+<!--?<metal:search define-macro="navigation">-->
+    <!--?<div class="header">-->
+        <!--?<div id="navigation">-->
+            <!--?<span tal:repeat="part request.navigation_info.path">-->
+                <!--?<tal:separator condition="not repeat.part.start">»</tal:separator>-->
+                <!--?<a href="${part.url}">${part.title}</a>-->
+            <!--?</span>-->
+            <!--?<metal:statusbadge use-macro="request.macros['statusbadge']"/>-->
+        <!--?</div>-->
+        <!--?<metal:status use-macro="request.macros['status']"/>-->
+        <!--?<metal:endofheader define-slot="endofheader"/>-->
+    <!--?</div>-->
+<!--?</metal:search>-->

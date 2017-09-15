@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>devpi - ${user_info.name} </title>
+        <metal:head use-macro="request.macros['head']" />
+    </head>
+    <body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+    <metal:header use-macro="request.macros['header']"/>
+        <metal:nav use-macro="request.macros['navigation']" />
+        <div id="content">
+            <h1>${user_info.name}</h1>
+            <h1>${user_info.email}</h1>
+            <h1>${user_info.description}</h1>
+            <h1>${user_info.title}</h1>
+        <div>
+            <dd tal:condition="user_info.indexes">
+                <ul>
+                    <li tal:repeat="index user_info.indexes">
+                        <a tal:attributes="title index.index_description" href="${index.url}">
+                        ${user_info.name}/${index.index_name}
+                            <span tal:condition="index.index_title">${index.index_title}</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </div>
+        </div>
+
+        <metal:footer use-macro="request.macros['footer']" />
+    </body>
+</html>

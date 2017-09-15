@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>devpi</title>
+    <metal:head use-macro="request.macros['head']"/>
+</head>
+<body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+<metal:header use-macro="request.macros['header']"/>
+<metal:nav use-macro="request.macros['navigation']" />
+<div id="content">
+    <metal:rootaboveuserindexlist use-macro="request.macros['rootaboveuserindexlist']"/>
+    <!--?<dl tal:repeat="package packages">-->
+            <!--?<dt>${package.info.name}</dt>-->
+            <!--?<dd>${package.info}</dd>-->
+            <!--?<dd>${package.files[0]['last_modified']}</dd>-->
+            <!--?<dd><script> document.write(moment.utc("${package.files[0]['last_modified']}")._d)</script></dd>-->
+    <!--?</dl>-->
+    <div class="user_index_list">
+        <dl tal:repeat="user users">
+            <dt>
+            <a href="/${user.user_name}">${user.user_name}</a> <span tal:condition="user.user_title">${user.user_title}</span>
+            </dt>
+            <dd class="user_description" tal:condition="user.user_description">
+                    ${user.user_description}
+            </dd>
+            <dd tal:condition="user.indexes">
+                <ul>
+                    <li tal:repeat="index user.indexes">
+                        <a tal:attributes="title index.index_description" href="${index.url}">
+                        ${user.user_name}/${index.index_name}
+                            <span tal:condition="index.index_title">${index.index_title}</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <metal:rootbelowuserindexlist use-macro="request.macros['rootbelowuserindexlist']"/>
+</div>
+<metal:footer use-macro="request.macros['footer']"/>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <title>${title}</title>
+    <metal:head use-macro="request.macros['head']"/>
+</head>
+<body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+<metal:header use-macro="request.macros['header']"/>
+<metal:nav use-macro="request.macros['navigation']"/>
+<div id="content">
+    <h2 class="index_title">
+    ${index_name} <span tal:condition="index_title">${index_title}</span>
+    </h2>
+
+    <p class="index_description" tal:condition="index_description">${index_description}</p>
+
+    <tal:packages condition="not packages">
+        <h5>This index is empty</h5>
+    </tal:packages>
+    <tal:packages condition="packages">
+        <h5>in-stage latest packages, at least as recent as bases
+            <a href="${simple_index_url}">show full list</a>
+        </h5>
+        <table class="packages">
+            <thead>
+            <tr>
+                <th class="name">Name</th>
+                <th class="release">Releases</th>
+                <th class="docs">Documentation</th>
+                <th class="date">Last update</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr tal:repeat="package packages">
+                <td><a href="${package.info.url}">${package.info.title}</a></td>
+                <td>
+                    <tal:files condition="package.files" repeat="file package.files">
+                        <tal:file define="toxresults file.get('toxresults', []);
+                                          failed None if not toxresults else any(x['failed'] for x in toxresults)">
+                            <a href="${file.url}">${file.title}</a>
+                            <tal:tests condition="failed is not None">
+                                (<a href="${package.make_toxresults_url(basename=file.basename)}" tal:attributes="class 'failed' if failed else 'passed'">tests</a>)
+                            </tal:tests>
+                            <br tal:condition="not repeat.file.end" />
+                        </tal:file>
+                    </tal:files>
+                </td>
+                <td><a tal:condition="package.docs" href="${package.docs.url}">${package.docs.title}</a></td>
+                <td tal:condition="package.files"
+                        class="timestamp">${package.files[0].get('last_modified')}</td>
+            </tr>
+            </tbody>
+        </table>
+    </tal:packages>
+
+    <!--?<tal:permissions condition="permissions">-->
+        <!--?<h5>permissions</h5>-->
+        <!--?<dl class="permissions" tal:repeat="permission permissions">-->
+            <!--?<dt>${permission.title}</dt>-->
+            <!--?<dd tal:condition="permission.users">-->
+                <!--?Users:-->
+                    <!--?<span tal:repeat="user permission.users">-->
+                            <!--?${user.title}-->
+                    <!--?</span>-->
+            <!--?</dd>-->
+            <!--?<dd tal:condition="permission.groups">-->
+                <!--?Groups:-->
+                    <!--?<span tal:repeat="group permission.groups">-->
+                            <!--?${group.title}-->
+                    <!--?</span>-->
+            <!--?</dd>-->
+            <!--?<dd tal:condition="permission.special">-->
+                <!--?Special:-->
+                    <!--?<span tal:repeat="special permission.special">-->
+                            <!--?${special.title}-->
+                    <!--?</span>-->
+            <!--?</dd>-->
+        <!--?</dl>-->
+    <!--?</tal:permissions>-->
+    <table class="index-info">
+        <tr>
+            <th>inherited bases</th>
+            <th>whitelisted packages</th>
+        </tr>
+        <tr>
+            <td class="bases">
+                <tal:bases condition="bases">
+                    <ul>
+                        <li tal:repeat="base bases">
+                            <a href="${base.url}">${base.title}</a> (<a href="${base.simple_url}">simple</a>)
+                        </li>
+                    </ul>
+                </tal:bases>
+                <p tal:condition="not bases">No bases for this index.</p>
+            </td>
+            <td class="whitelisted">
+                <ul lass="whitelist" tal:condition="whitelist">
+                    <li tal:repeat="name whitelist">
+                    <span tal:condition="python:name == '*' ">any (*)</span>
+                    <span tal:condition="python:name != '*' ">${name}</span>
+                    </li>
+                </ul>
+                <p tal:condition="not whitelist">No packages whitelisted.</p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<metal:footer use-macro="request.macros['footer']"/>
+</body>
+</html>
