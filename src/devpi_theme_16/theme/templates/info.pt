@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Status</title>
+    <metal:head use-macro="request.macros['head']"/>
+</head>
+<body>
+<metal:header use-macro="request.macros['header']"/>
+<!--?<metal:nav use-macro="request.macros['navigation']"/>-->
+<div id="content">
+    <!--?<tal:msgs condition="msgs">-->
+        <!--?<h2>Status messages</h2>-->
+        <!--?<ul>-->
+            <!--?<li tal:repeat="msg msgs">-->
+                <!--?<span tal:condition="msg.status == 'warn'">Warning:</span>-->
+                <!--?<span tal:condition="msg.status == 'fatal'">Error:</span>-->
+                    <!--?${msg.msg}-->
+            <!--?</li>-->
+        <!--?</ul>-->
+    <!--?</tal:msgs>-->
+    <h2>Server Info</h2>
+    <table class="status">
+    <ul lass="footer-versions"
+        tal:define="version_infos request.registry.get('devpi_version_info')"
+        tal:condition="version_infos">
+        <li tal:repeat="vi version_infos">${vi[0]}-${vi[1]}</li>
+    </ul>
+    </table>
+</div>
+<metal:footer use-macro="request.macros['footer']"/>
+</body>
+</html>

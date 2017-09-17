@@ -3,29 +3,37 @@
         <link rel="stylesheet" type="text/css" href="${request.theme_static_url('css/16.css')}"/>
     </metal:mycss>
 </metal:head>
-<metal:footer define-macro="footer" use-macro="request.macros['original-footer']">
-    <metal:mycss fill-slot="footer">
-        <!-- using the example request method -->
-        <!--?<p>Page generated <span class="timestamp">${request.generated_at}</span></p>&nbsp;-->
-    </metal:mycss>
-</metal:footer>
+<metal:footer define-macro="footer">
+    <footer>
+        <div>
+            Page generated <span class="timestamp">${request.generated_at}</span>
+            <!--?<a href="/+status/">status</a>-->
+            - <a href="/+info/">info</a>
 
-<metal:header define-macro="header">
-    <header id="navbar" role="banner" class="navbar navbar-fixed-top navbar-default container-fluid">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="name navbar-brand" href="/" title="Home">devpi</a>
-            </div>
-        <!--?<metal:status use-macro="request.macros['status']"/>-->
+            - status: <a class="statusline ${request.status_info.status}"
+                         href="${request.status_info.url}">
+                ${request.status_info.short_msg}</a>
         </div>
+    </footer>
+</metal:footer>
+<metal:header define-macro="header">
+    <header d="navbar" role="banner" lass="navbar navbar-fixed-top navbar-default container-fluid">
+        <!--?<div cass="container">-->
+        <div class="navbar-brand">
+            <a href="/" title="Home">devpi</a>
+        </div>
+        <!--?<metal:status use-macro="request.macros['status']"/>-->
+        <!--?</div>-->
     </header>
-</metal:header>
-<metal:nav define-macro="navigation">
+    <!--?</metal:header>-->
+    <!--?<metal:nav define-macro="navigation">-->
     <div id="breadcrumb-wrapper">
-        <div class="breadcrumb-container container">
+        <div class="breadcrumb-container">
             <ol class="breadcrumb">
                 <li><a href="/" class="active">Home</a></li>
                 <li tal:condition="info|None">server status</li>
+                <li tal:condition="request.url.endswith('+info')|None">server info</li>
+                <li tal:condition="request.url.endswith('+searchhelp')|None">help</li>
                 <li tal:condition="user|None"><a href="/${user.name}">${user.name}</a></li>
                 <li tal:condition="index|None"><a href="/${user.name}/${index}">${index}</a></li>
                 <li tal:condition="project|None"><a href="${project_url}">${project|None}</a></li>
@@ -59,19 +67,6 @@
             </div>
         </div>
     </div>
+</metal:header>
+<metal:nav define-macro="navigation">
 </metal:nav>
-
-
-<!--?<metal:search define-macro="navigation">-->
-    <!--?<div class="header">-->
-        <!--?<div id="navigation">-->
-            <!--?<span tal:repeat="part request.navigation_info.path">-->
-                <!--?<tal:separator condition="not repeat.part.start">»</tal:separator>-->
-                <!--?<a href="${part.url}">${part.title}</a>-->
-            <!--?</span>-->
-            <!--?<metal:statusbadge use-macro="request.macros['statusbadge']"/>-->
-        <!--?</div>-->
-        <!--?<metal:status use-macro="request.macros['status']"/>-->
-        <!--?<metal:endofheader define-slot="endofheader"/>-->
-    <!--?</div>-->
-<!--?</metal:search>-->

@@ -1,4 +1,4 @@
 include *.in
 include tox.ini
 include *.rst
-recursive-include src/devpi_theme_16 *.*
+recursive-include src/devpi_theme_16 *

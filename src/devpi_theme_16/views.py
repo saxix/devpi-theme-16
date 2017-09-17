@@ -2,6 +2,15 @@ from pyramid.view import view_config
 
 
 @view_config(
+    route_name="infoview",
+    accept="text/html",
+    request_method="GET",
+    renderer="templates/info.pt")
+def infoview(context, request):
+    return {}
+
+
+@view_config(
     route_name="/{user}",
     accept="text/html",
     request_method="GET",

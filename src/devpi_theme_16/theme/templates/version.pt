@@ -56,20 +56,20 @@
             </td>
             <td>
                 <tal:size condition="file.size">
-                    <dt>Size</dt>
+                    <!--?<dt>Size</dt>-->
                     <dd>${file.size}</dd>
                 </tal:size>
 
             </td>
             <td>
                 <tal:py_version condition="file.py_version">
-                    <dt>Python</dt>
+                    <!--?<dt>Python</dt>-->
                     <dd>${file.py_version}</dd>
                 </tal:py_version>
             </td>
             <td>
                 <tal:dist_type condition="file.dist_type">
-                    <dt>Type</dt>
+                    <!--?<dt>Type</dt>-->
                     <dd>${file.dist_type}</dd>
                 </tal:dist_type>
             </td>
@@ -86,30 +86,16 @@
                 </tal:toxresults>
             </td>
             <td>
-                <ul class="file_history">
-                    <li tal:repeat="log file.history">
-                    ${log.what}
-                        <tal:src condition="log.get('src')">
-                            from
-                            <a tal:omit-tag="not log.src.href" href="${log.src.href}">
-                                    ${log.src.title}
-                            </a>
-                        </tal:src>
-                        <tal:dst condition="log.get('dst')">
-                            to
-                            <a tal:omit-tag="not log.dst.href" href="${log.dst.href}">
-                                    ${log.dst.title}
-                            </a>
-                        </tal:dst>
-                        <tal:by condition="log.get('who')">
-                            by ${log.who}
-                        </tal:by>
-                        <tal:count condition="log.get('count')">
-                        ${log.count} time(s)
-                        </tal:count>
+                <div class="file_history">
+                    <div tal:repeat="log file.history">${log.what}
+                        <tal:src condition="log.get('src')">from <a tal:omit-tag="not log.src.href" href="${log.src.href}">${log.src.title}</a></tal:src>
+                        <tal:dst condition="log.get('dst')">to <a tal:omit-tag="not log.dst.href" href="${log.dst.href}">${log.dst.title}</a></tal:dst>
+                        <tal:by condition="log.get('who')">by <a tal:omit-tag="not log.dst.href" href="/${log.who}">${log.who}</a></tal:by>
+                        <!--?<tal:by condition="log.get('who')">by ${log.who}</tal:by>-->
+                        <tal:count condition="log.get('count')">${log.count} time(s)</tal:count>
                         <span tal:condition="log.get('when')" class="timestamp">${log.when}</span>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </td>
         </tr>
         </tbody>

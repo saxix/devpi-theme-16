@@ -4,9 +4,9 @@
     <title>devpi</title>
     <metal:head use-macro="request.macros['head']"/>
 </head>
-<body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+<body class="htm">
 <metal:header use-macro="request.macros['header']"/>
-<metal:nav use-macro="request.macros['navigation']" />
+<!--?<metal:nav use-macro="request.macros['navigation']" />-->
 <div id="content">
     <metal:rootaboveuserindexlist use-macro="request.macros['rootaboveuserindexlist']"/>
     <!--?<dl tal:repeat="package packages">-->

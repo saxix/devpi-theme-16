@@ -1,4 +1,7 @@
-~16x.scss
-.idea
 .DS_Store
-devpi_theme_16.egg-info
+.idea
+.tox
+.cache
+.coverage
+dist
+src/devpi_theme_16.egg-info
