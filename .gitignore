@@ -4,4 +4,5 @@
 .cache
 .coverage
 dist
+htmlcov
 src/devpi_theme_16.egg-info
