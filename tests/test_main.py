@@ -1,8 +1,8 @@
-import re
-
-
-def compareable_text(text):
-    return re.sub('\s+', ' ', text.strip())
+# import re
+#
+#
+# def compareable_text(text):
+#     return re.sub('\s+', ' ', text.strip())
 
 
 def test_importable():

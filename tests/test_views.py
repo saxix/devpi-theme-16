@@ -9,6 +9,10 @@ def compareable_text(text):
     return re.sub('\s+', ' ', text.strip())
 
 
+def clean(text):
+    return text.replace('\n', '').strip()
+
+
 @pytest.yield_fixture
 def pyramidconfig():
     from pyramid.testing import setUp, tearDown
@@ -77,10 +81,6 @@ def test_index_view_project(mapp, testapp):
         (u'2.6', u'http://localhost/user1/dev/pkg1/2.6')]
 
 
-def clean(text):
-    return text.replace('\n', '').strip()
-
-
 def test_index_view_project_version(mapp, testapp):
     api = mapp.create_and_use()
     mapp.upload_file_pypi(
@@ -116,7 +116,6 @@ def test_index_view_project_toxresults(mapp, testapp):
          u'http://localhost/user1/dev/pkg1/2.6/+toxresults/pkg1-2.6.tgz/pkg1-2.6.tgz.toxresult0#foo-linux2-py27-setup'),
         (u'Tests',
          u'http://localhost/user1/dev/pkg1/2.6/+toxresults/pkg1-2.6.tgz/pkg1-2.6.tgz.toxresult0#foo-linux2-py27-test')]
-
 
 # @pytest.mark.with_notifier
 # def test_index_view_project_docs(mapp, testapp):

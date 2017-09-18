@@ -30,7 +30,9 @@ setup(name=app.NAME,
       maintainer="",
       maintainer_email="",
       license="MIT",
-      extras_require={'test': ['pytest', 'pytest-pep8', 'pytest-cov', 'pytest-flakes', 'tox', 'webtest', 'devpi-server']},
+      extras_require={'test': ['pytest', 'pytest-pep8', 'pytest-cov',
+                               'pytest-flakes', 'tox', 'webtest',
+                               'devpi-server']},
       entry_points={
           'devpi_server': [
               "devpi-theme-16 = devpi_theme_16.main"]},
