@@ -3,6 +3,10 @@ Custom theme for devpi-server
 
 This is a custom theme for devpi-server
 
+![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/home.png)
+
+
+
 Installation
 ------------
 
@@ -20,7 +24,6 @@ setuptools entry points mechanism.
 Contribute
 ----------
 
-::
 
     $ source <VIRTUALENV>/bin/activate
     $ export THEME_16_ROOT=/tmp/theme-16
@@ -31,3 +34,9 @@ Contribute
 
 
 open browser at http://127.0.0.1:9000.
+
+
+![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/index.png)
+![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/project.png)
+![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/status.png)
+![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/info.png)
