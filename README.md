@@ -35,8 +35,22 @@ Contribute
 
 open browser at http://127.0.0.1:9000.
 
+Screenshots
+-----------
+
+**index**
 
 ![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/index.png)
+
+**project version page**
+
 ![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/project.png)
+
+**status page**
+
 ![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/status.png)
+
+
+**info page**
+
 ![home](https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/info.png)
