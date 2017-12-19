@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <title>${title} - Remove</title>
+    <metal:head use-macro="request.macros['head']"/>
+</head>
+<body class="html front logged-in one-sidebar sidebar-second page-home navbar-is-fixed-top form-single-submit-processed bootstrap-anchors-processed">
+<metal:header use-macro="request.macros['header']"/>
+<metal:nav use-macro="request.macros['navigation']"/>
+<div id="content" class="package-version">
+    <h1>Remove package ${project}</h1>
+    <p>
+        Confirm permanent removal of <i>${project}</i>?
+    </p>
+    <form method="post">
+        <input type="submit" name="cancel" value="Nope, go back and preserve the package">
+        <input type="submit" name="remove" value="Remove">
+    </form>
+</div>
+<metal:footer use-macro="request.macros['footer']"/>
+</body>
+</html>

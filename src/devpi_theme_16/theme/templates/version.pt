@@ -9,9 +9,8 @@
 <metal:nav use-macro="request.macros['navigation']"/>
 <script>
     $(function () {
-        $("#description").addClass("closed");
-        $("#description .value").click(function () {
-            $(this).parent().toggleClass("closed opened");
+        $("#description").addClass("closed").click(function () {
+            $(this).toggleClass("closed opened");
         });
 
     });
@@ -22,6 +21,9 @@
         <tal:link repeat="link nav_links"><a href="${link.url}">${link.title}</a>
             <tal:sep condition="not repeat.link.end"> |</tal:sep>
         </tal:link>
+        <span tal:condition="python: user.name == identity">
+        | <a href="${project_url}/${version}/+remove">Remove</a>
+            </span>
     </p>
     <p id="summary" tal:condition="summary" tal:content="summary" />
     <table class="projectinfos">
@@ -88,9 +90,12 @@
             <td>
                 <div class="file_history">
                     <div tal:repeat="log file.history">${log.what}
-                        <tal:src condition="log.get('src')">from <a tal:omit-tag="not log.src.href" href="${log.src.href}">${log.src.title}</a></tal:src>
-                        <tal:dst condition="log.get('dst')">to <a tal:omit-tag="not log.dst.href" href="${log.dst.href}">${log.dst.title}</a></tal:dst>
-                        <tal:by condition="log.get('who')">by <a tal:omit-tag="not log.dst.href" href="/${log.who}">${log.who}</a></tal:by>
+                        <tal:src condition="log.get('src')">from <a tal:omit-tag="not log.src.href"
+                                href="${log.src.href}">${log.src.title}</a></tal:src>
+                        <tal:dst condition="log.get('dst')">to <a tal:omit-tag="not log.dst.href"
+                                href="${log.dst.href}">${log.dst.title}</a></tal:dst>
+                        <tal:by condition="log.get('who')">by <a tal:omit-tag="not log.dst.href"
+                                href="/${log.who}">${log.who}</a></tal:by>
                         <!--?<tal:by condition="log.get('who')">by ${log.who}</tal:by>-->
                         <tal:count condition="log.get('count')">${log.count} time(s)</tal:count>
                         <span tal:condition="log.get('when')" class="timestamp">${log.when}</span>
