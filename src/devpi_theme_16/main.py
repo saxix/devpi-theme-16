@@ -1,7 +1,6 @@
 from pkg_resources import resource_filename
 from pyramid.authentication import AuthTktCookieHelper
-from pyramid.events import subscriber
-from pyramid.events import BeforeRender
+from pyramid.events import BeforeRender, subscriber
 
 LAST_PACKAGE_FILE = '_last_package'
 LAST_VERSION_FILE = '_last_version'

@@ -56,7 +56,6 @@ remove package
 
 .. image:: https://raw.githubusercontent.com/saxix/devpi-theme-16/master/docs/remove.png
 
-
 project version page
 ~~~~~~~~~~~~~~~~~~~~
 

@@ -32,6 +32,23 @@ def dummyrequest(pyramidconfig):
     yield request
 
 
+def test_login(testapp):
+    r = testapp.get('/+login2', headers=dict(accept="text/html"))
+    assert r.status_code == 200
+
+    r = testapp.post('/+login2',
+                     params={'username': 'root', 'password': ''},
+                     headers=dict(accept="text/html"))
+    assert r.status_code == 302
+
+
+def test_logout(testapp):
+    r = testapp.get('/+logout',
+                    follow=False,
+                    headers=dict(accept="text/html"))
+    assert r.status_code == 302
+
+
 def test_info_view(testapp):
     r = testapp.get('/+info', headers=dict(accept="text/html"))
     assert r.status_code == 200
@@ -118,20 +135,13 @@ def test_index_view_project_toxresults(mapp, testapp):
         (u'Tests',
          u'http://localhost/user1/dev/pkg1/2.6/+toxresults/pkg1-2.6.tgz/pkg1-2.6.tgz.toxresult0#foo-linux2-py27-test')]
 
-# @pytest.mark.with_notifier
-# def test_index_view_project_docs(mapp, testapp):
-#     api = mapp.create_and_use(indexconfig=dict(bases=["root/pypi"]))
-#     mapp.set_versiondata({"name": "pkg1", "version": "2.6"})
-#     content = zip_dict({"index.html": "<html/>"})
-#     mapp.upload_doc("pkg1.zip", content, "pkg1", "2.6", code=200,
-#                     waithooks=True)
-#     r = testapp.get("{}/pkg1/2.6/+doc".format(api.index), headers=dict(accept="text/html"))
-#     assert r.status_code == 200
-#     links = r.html.select('#content a')
-#
-#     assert [(l.text, l.attrs['href']) for l in links] == [
-#         ("show full list", "http://localhost/%s/+simple/" % api.stagename),
-#         ("pkg1-2.6", "http://localhost/%s/pkg1/2.6" % api.stagename),
-#         ("pkg1-2.6", "http://localhost/%s/pkg1/2.6/+d/index.html" % api.stagename),
-#         ("root/pypi", "http://localhost/root/pypi"),
-#         ("simple", "http://localhost/root/pypi/+simple/")]
+
+def test_index_remove_project(mapp, testapp):
+    api = mapp.create_and_use()
+    mapp.upload_file_pypi(
+        "pkg1-2.6.tar.gz", b"contentveryold", "pkg1", "2.6").file_url
+
+    r = testapp.get("{}/pkg1/2.6/+remove".format(api.index),
+                    headers=dict(accept="text/html"))
+    assert r.status_code == 200
+    assert "Confirm permanent removal of" in r.body
