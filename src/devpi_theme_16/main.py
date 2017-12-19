@@ -1,7 +1,8 @@
+import os
+
 from pkg_resources import resource_filename
 from pyramid.authentication import AuthTktCookieHelper
-from pyramid.events import subscriber
-from pyramid.events import BeforeRender
+from pyramid.events import BeforeRender, subscriber
 
 LAST_PACKAGE_FILE = '_last_package'
 LAST_VERSION_FILE = '_last_version'
@@ -11,7 +12,9 @@ def devpiserver_cmdline_run(xom):
     # this is slightly hacky, because accessing the command line args like that
     # is not part of the official API, but this is just for convenience
     if xom.config.args.theme is None:
-        path = resource_filename('devpi_theme_16', 'theme')
+        # path = resource_filename('devpi_theme_16', 'theme')
+        here = os.path.dirname(__file__)
+        path = os.path.realpath(os.path.join(here, 'theme'))
         xom.config.args.theme = path
     else:
         xom.log.error("You are trying to set a theme, "
@@ -85,6 +88,8 @@ def get_logged_user(context, request):
         identity = cookie.identify(request)
         if identity:
             return identity['userid']
+    except AttributeError: # 'HTTPNotFound' object has no attribute 'model'
+        pass
     except ValueError:
         pass
     return ""
@@ -95,26 +100,22 @@ def add_global(event):
     request = event['request']
     context = event['context']
     # event.rendering_val['user'] = getattr(context, 'user')
-    try:
-        identity = get_logged_user(context, request)
-        event.rendering_val['identity'] = identity
+    identity = get_logged_user(context, request)
+    event.rendering_val['identity'] = identity
 
-        if request.matched_route:
-            if hasattr(context, 'matchdict'):
-                for k, v in context.matchdict.items():
-                    event.rendering_val[k] = v
-            if 'user' in event.rendering_val:
-                user = getattr(context, 'user')
-                event.rendering_val['user'] = user
-            if 'project' in event.rendering_val:
-                event.rendering_val['project_url'] = get_project_url(event)
-                event.rendering_val['project'] = getattr(context,
-                                                         'verified_project')
-            if 'version' in event.rendering_val:
-                event.rendering_val['version_url'] = get_version_url(event)
-    except AttributeError:
-        pass
-    return
+    if request.matched_route:
+        if hasattr(context, 'matchdict'):
+            for k, v in context.matchdict.items():
+                event.rendering_val[k] = v
+        if 'user' in event.rendering_val:
+            user = getattr(context, 'user')
+            event.rendering_val['user'] = user
+        if 'project' in event.rendering_val:
+            event.rendering_val['project_url'] = get_project_url(event)
+            event.rendering_val['project'] = getattr(context,
+                                                     'verified_project')
+        if 'version' in event.rendering_val:
+            event.rendering_val['version_url'] = get_version_url(event)
 
 
 def includeme(config):
@@ -122,7 +123,7 @@ def includeme(config):
     config.add_route('infoview', '/+info')
     config.add_route('/{user}', '/{user}')
     config.add_route('remove', '/{user}/{index}/{project}/{version}/+remove')
-    config.add_route('login2', '/+login2')
+    config.add_route('web_login', '/+login2')
     config.add_route('logout', '/+logout')
 
     config.scan()

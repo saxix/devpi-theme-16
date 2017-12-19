@@ -12,7 +12,13 @@ import pytest
 
 
 def pytest_configure():
-    logging.basicConfig(level=logging.ERROR)
+    logging.getLogger().handlers = []
+    logging.getLogger("").handlers = []
+    logging.getLogger("devpi_server").handlers = []
+
+    logging.getLogger().setLevel(logging.ERROR)
+    logging.getLogger("devpi_server").setLevel(logging.ERROR)
+    logging.getLogger("devpi_web").setLevel(logging.ERROR)
 
 
 def pytest_addoption(parser):

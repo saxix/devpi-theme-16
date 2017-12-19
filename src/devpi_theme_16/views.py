@@ -3,8 +3,7 @@ from devpi_server.model import UpstreamError
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
-from devpi_theme_16.main import (get_cookie_helper, get_version_url,
-                                 get_index_url)
+from devpi_theme_16.main import get_cookie_helper, get_index_url, get_version_url
 
 
 @view_config(
@@ -19,8 +18,7 @@ def infoview(context, request):
 @view_config(
     route_name="logout",
     accept="text/html",
-    request_method=["GET", "POST"],
-    renderer="templates/login.pt")
+    request_method=["GET", "POST"])
 def logout(context, request):
     cookie = get_cookie_helper(context)
     headers = cookie.forget(request)
@@ -28,20 +26,16 @@ def logout(context, request):
 
 
 @view_config(
-    route_name="login2",
+    route_name="web_login",
     accept="text/html",
     request_method=["GET", "POST"],
     renderer="templates/login.pt")
-def login2(context, request):
+def web_login(context, request):
     error = ""
     if request.method == 'POST':
         uname = request.params['username']
         pwd = request.params['password']
-        login_url = request.route_url('login2')
-        referrer = request.url
-        if referrer == login_url:
-            referrer = '/'  # never use login form itself as came_from
-        came_from = request.params.get('came_from', referrer)
+        came_from = request.params.get('came_from', request.url)
 
         auth = Auth(context.model, context.model.xom.config.secret)
         cookie = get_cookie_helper(context)
@@ -60,8 +54,6 @@ def login2(context, request):
     request_method=["GET", "POST"],
     renderer="templates/remove.pt")
 def remove(context, request):
-    project = context.verified_project
-
     if request.method == 'POST':
         if 'cancel' in request.params:
             came_from = get_version_url(context=context,
@@ -74,6 +66,7 @@ def remove(context, request):
             stage.del_versiondata(name, version)
         return HTTPFound(location=came_from)
 
+    project = context.verified_project
     return {"title": project}
 
 
