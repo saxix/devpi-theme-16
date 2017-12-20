@@ -84,6 +84,8 @@ def get_logged_user(context, request):
         identity = cookie.identify(request)
         if identity:
             return identity['userid']
+    except AttributeError: # 'HTTPNotFound' object has no attribute 'model'
+        pass
     except ValueError:
         pass
     return ""
@@ -94,26 +96,22 @@ def add_global(event):
     request = event['request']
     context = event['context']
     # event.rendering_val['user'] = getattr(context, 'user')
-    try:
-        identity = get_logged_user(context, request)
-        event.rendering_val['identity'] = identity
+    identity = get_logged_user(context, request)
+    event.rendering_val['identity'] = identity
 
-        if request.matched_route:
-            if hasattr(context, 'matchdict'):
-                for k, v in context.matchdict.items():
-                    event.rendering_val[k] = v
-            if 'user' in event.rendering_val:
-                user = getattr(context, 'user')
-                event.rendering_val['user'] = user
-            if 'project' in event.rendering_val:
-                event.rendering_val['project_url'] = get_project_url(event)
-                event.rendering_val['project'] = getattr(context,
-                                                         'verified_project')
-            if 'version' in event.rendering_val:
-                event.rendering_val['version_url'] = get_version_url(event)
-    except AttributeError:
-        pass
-    return
+    if request.matched_route:
+        if hasattr(context, 'matchdict'):
+            for k, v in context.matchdict.items():
+                event.rendering_val[k] = v
+        if 'user' in event.rendering_val:
+            user = getattr(context, 'user')
+            event.rendering_val['user'] = user
+        if 'project' in event.rendering_val:
+            event.rendering_val['project_url'] = get_project_url(event)
+            event.rendering_val['project'] = getattr(context,
+                                                     'verified_project')
+        if 'version' in event.rendering_val:
+            event.rendering_val['version_url'] = get_version_url(event)
 
 
 def includeme(config):
@@ -121,7 +119,7 @@ def includeme(config):
     config.add_route('infoview', '/+info')
     config.add_route('/{user}', '/{user}')
     config.add_route('remove', '/{user}/{index}/{project}/{version}/+remove')
-    config.add_route('login2', '/+login2')
+    config.add_route('web_login', '/+login2')
     config.add_route('logout', '/+logout')
 
     config.scan()

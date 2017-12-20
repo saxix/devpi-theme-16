@@ -1,3 +1,5 @@
+import logging
+
 from test_devpi_server.conftest import gentmp, httpget, makemapp  # noqa
 from test_devpi_server.conftest import maketestapp, makexom, mapp  # noqa
 from test_devpi_server.conftest import pypiurls, testapp, pypistage  # noqa
@@ -7,6 +9,16 @@ from test_devpi_server.conftest import mock, pyramidconfig  # noqa
 import pytest
 
 (makexom,)  # shut up pyflakes
+
+
+def pytest_configure():
+    logging.getLogger().handlers = []
+    logging.getLogger("").handlers = []
+    logging.getLogger("devpi_server").handlers = []
+
+    logging.getLogger().setLevel(logging.ERROR)
+    logging.getLogger("devpi_server").setLevel(logging.ERROR)
+    logging.getLogger("devpi_web").setLevel(logging.ERROR)
 
 
 def pytest_addoption(parser):

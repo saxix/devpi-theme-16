@@ -32,14 +32,24 @@ def dummyrequest(pyramidconfig):
     yield request
 
 
-def test_login(testapp):
+def test_login_success(testapp):
     r = testapp.get('/+login2', headers=dict(accept="text/html"))
     assert r.status_code == 200
 
     r = testapp.post('/+login2',
-                     params={'username': 'root', 'password': ''},
-                     headers=dict(accept="text/html"))
+                     params={'username': 'root', 'password': ''})
     assert r.status_code == 302
+
+
+def test_login_fail(testapp):
+    r = testapp.get('/+login2', headers=dict(accept="text/html"))
+    assert r.status_code == 200
+
+    r = testapp.post('/+login2',
+                     params={'username': 'inv@lid', 'password': ''},
+                     headers=dict(accept="text/html"))
+    assert r.status_code == 200
+    assert "Invalid credentials" in r.body
 
 
 def test_logout(testapp):
@@ -136,7 +146,7 @@ def test_index_view_project_toxresults(mapp, testapp):
          u'http://localhost/user1/dev/pkg1/2.6/+toxresults/pkg1-2.6.tgz/pkg1-2.6.tgz.toxresult0#foo-linux2-py27-test')]
 
 
-def test_index_remove_project(mapp, testapp):
+def test_index_remove_project_query(mapp, testapp):
     api = mapp.create_and_use()
     mapp.upload_file_pypi(
         "pkg1-2.6.tar.gz", b"contentveryold", "pkg1", "2.6").file_url
@@ -145,3 +155,31 @@ def test_index_remove_project(mapp, testapp):
                     headers=dict(accept="text/html"))
     assert r.status_code == 200
     assert "Confirm permanent removal of" in r.body
+
+
+def test_index_remove_cancel(mapp, testapp):
+    api = mapp.create_and_use()
+    mapp.upload_file_pypi(
+        "pkg1-2.6.tar.gz", b"contentveryold", "pkg1", "2.6").file_url
+
+    r = testapp.post("{}/pkg1/2.6/+remove".format(api.index),
+                     params={"cancel": 1})
+    assert r.status_code == 302
+
+    r = testapp.get("{}/pkg1/2.6/+remove".format(api.index),
+                    headers=dict(accept="text/html"))
+    assert r.status_code == 200
+
+
+def test_index_remove_confirm(mapp, testapp):
+    api = mapp.create_and_use()
+    mapp.upload_file_pypi(
+        "pkg1-2.6.tar.gz", b"contentveryold", "pkg1", "2.6").file_url
+
+    r = testapp.post("{}/pkg1/2.6/+remove".format(api.index),
+                     params={"remove": 1})
+    assert r.status_code == 302
+
+    r = testapp.get("{}/pkg1/2.6/+remove".format(api.index),
+                    headers=dict(accept="text/html"))
+    assert r.status_code == 404

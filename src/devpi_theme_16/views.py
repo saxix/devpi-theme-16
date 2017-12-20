@@ -26,20 +26,16 @@ def logout(context, request):
 
 
 @view_config(
-    route_name="login2",
+    route_name="web_login",
     accept="text/html",
     request_method=["GET", "POST"],
     renderer="templates/login.pt")
-def login2(context, request):
+def web_login(context, request):
     error = ""
     if request.method == 'POST':
         uname = request.params['username']
         pwd = request.params['password']
-        login_url = request.route_url('login2')
-        referrer = request.url
-        if referrer == login_url:
-            referrer = '/'  # never use login form itself as came_from
-        came_from = request.params.get('came_from', referrer)
+        came_from = request.params.get('came_from', request.url)
 
         auth = Auth(context.model, context.model.xom.config.secret)
         cookie = get_cookie_helper(context)
