@@ -1,3 +1,5 @@
+import os
+
 from pkg_resources import resource_filename
 from pyramid.authentication import AuthTktCookieHelper
 from pyramid.events import BeforeRender, subscriber
@@ -10,7 +12,9 @@ def devpiserver_cmdline_run(xom):
     # this is slightly hacky, because accessing the command line args like that
     # is not part of the official API, but this is just for convenience
     if xom.config.args.theme is None:
-        path = resource_filename('devpi_theme_16', 'theme')
+        # path = resource_filename('devpi_theme_16', 'theme')
+        here = os.path.dirname(__file__)
+        path = os.path.realpath(os.path.join(here, 'theme'))
         xom.config.args.theme = path
     else:
         xom.log.error("You are trying to set a theme, "
