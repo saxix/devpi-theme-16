@@ -9,12 +9,6 @@
 <!--?<metal:nav use-macro="request.macros['navigation']" />-->
 <div id="content">
     <metal:rootaboveuserindexlist use-macro="request.macros['rootaboveuserindexlist']"/>
-    <!--?<dl tal:repeat="package packages">-->
-            <!--?<dt>${package.info.name}</dt>-->
-            <!--?<dd>${package.info}</dd>-->
-            <!--?<dd>${package.files[0]['last_modified']}</dd>-->
-            <!--?<dd><script> document.write(moment.utc("${package.files[0]['last_modified']}")._d)</script></dd>-->
-    <!--?</dl>-->
     <div class="user_index_list">
         <dl tal:repeat="user users">
             <dt>

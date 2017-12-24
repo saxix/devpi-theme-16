@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <title>Login</title>
+    <metal:head use-macro="request.macros['head']"/>
+</head>
+<body>
+<metal:header use-macro="request.macros['header']"/>
+<div id="content">
+    <p tal:condition="error">${error}</p>
+
+    <form method="post">
+        <table class="status">
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Login">
+    </form>
+</div>
+<metal:footer use-macro="request.macros['footer']"/>
+</body>
+</html>

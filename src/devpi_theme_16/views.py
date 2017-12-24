@@ -1,4 +1,9 @@
+from devpi_server.auth import Auth
+from devpi_server.model import UpstreamError
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
+
+from devpi_theme_16.main import get_cookie_helper, get_index_url, get_version_url
 
 
 @view_config(
@@ -8,6 +13,61 @@ from pyramid.view import view_config
     renderer="templates/info.pt")
 def infoview(context, request):
     return {}
+
+
+@view_config(
+    route_name="logout",
+    accept="text/html",
+    request_method=["GET", "POST"])
+def logout(context, request):
+    cookie = get_cookie_helper(context)
+    headers = cookie.forget(request)
+    return HTTPFound(location='/', headers=headers)
+
+
+@view_config(
+    route_name="web_login",
+    accept="text/html",
+    request_method=["GET", "POST"],
+    renderer="templates/login.pt")
+def web_login(context, request):
+    error = ""
+    if request.method == 'POST':
+        uname = request.params['username']
+        pwd = request.params['password']
+        came_from = request.params.get('came_from', request.url)
+
+        auth = Auth(context.model, context.model.xom.config.secret)
+        cookie = get_cookie_helper(context)
+
+        proxyauth = auth.new_proxy_auth(uname, pwd)
+        error = "Invalid credentials"
+        if proxyauth:
+            headers = cookie.remember(request, uname)
+            return HTTPFound(location=came_from, headers=headers)
+    return {"error": error}
+
+
+@view_config(
+    route_name="remove",
+    accept="text/html",
+    request_method=["GET", "POST"],
+    renderer="templates/remove.pt")
+def remove(context, request):
+    if request.method == 'POST':
+        if 'cancel' in request.params:
+            came_from = get_version_url(context=context,
+                                        request=request)
+        else:
+            came_from = get_index_url(context=context,
+                                      request=request)
+            stage = context.stage
+            name, version = context.project, context.version
+            stage.del_versiondata(name, version)
+        return HTTPFound(location=came_from)
+
+    project = context.verified_project
+    return {"title": project}
 
 
 @view_config(
@@ -21,10 +81,15 @@ def get_user(context, request):
     for index in sorted(user.key.get()['indexes'].keys()):
         stagename = "%s/%s" % (user.name, index)
         stage = context.model.getstage(stagename)
+        try:
+            packages = len(stage.list_projects_perstage())
+        except UpstreamError as e:
+            packages = [str(e)]
+
         indexes.append(dict(
             _ixconfig=stage.ixconfig,
             title=stagename,
-            packages=len(stage.list_projects_perstage()),
+            packages=packages,
             index_name=index,
             index_title=stage.ixconfig.get('title', None),
             index_description=stage.ixconfig.get('description', None),

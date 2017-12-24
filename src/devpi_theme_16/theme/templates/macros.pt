@@ -20,7 +20,15 @@
     <header d="navbar" role="banner" lass="navbar navbar-fixed-top navbar-default container-fluid">
         <!--?<div cass="container">-->
         <div class="navbar-brand">
-            <a href="/" title="Home">devpi</a>
+            <span class="logo"><a href="/" title="Home">devpi</a></span>
+            <span class="menu">
+                <a tal:condition="not identity" href="/+login2">Login</a>
+                <span tal:condition="identity">
+                    <span>Welcome, ${identity}</span> |
+                    <a href="/+logout">Logout</a>
+                </span>
+
+            </span>
         </div>
         <!--?<metal:status use-macro="request.macros['status']"/>-->
         <!--?</div>-->

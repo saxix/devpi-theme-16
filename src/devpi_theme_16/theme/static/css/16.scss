@@ -30,21 +30,37 @@ body, html {
 
 header {
   display: block;
-  //width: 98%;
   position: fixed;
   background-color: $blue;
   top: 0;
   color: white;
   z-index: 1030;
   .navbar-brand {
-    a {
-      color: white;
-      &:hover {
-        text-transform: none;
-        text-decoration: none;
+    width: 98%;
+    .logo {
+      a {
+        color: white;
+        &:hover {
+          text-transform: none;
+          text-decoration: none;
+        }
+      }
+    }
+    .menu {
+      float: right;
+      padding-right: 10px;
+      font-size: small;
+      a {
+        color: white;
+        //font-size: x-small;
+        &:hover {
+          text-transform: none;
+          text-decoration: none;
+        }
       }
     }
   }
+
 }
 
 #breadcrumb-wrapper {

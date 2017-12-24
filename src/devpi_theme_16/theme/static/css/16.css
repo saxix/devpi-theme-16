@@ -25,11 +25,22 @@ header {
   top: 0;
   color: white;
   z-index: 1030; }
-  header .navbar-brand a {
-    color: white; }
-    header .navbar-brand a:hover {
-      text-transform: none;
-      text-decoration: none; }
+  header .navbar-brand {
+    width: 98%; }
+    header .navbar-brand .logo a {
+      color: white; }
+      header .navbar-brand .logo a:hover {
+        text-transform: none;
+        text-decoration: none; }
+    header .navbar-brand .menu {
+      float: right;
+      padding-right: 10px;
+      font-size: small; }
+      header .navbar-brand .menu a {
+        color: white; }
+        header .navbar-brand .menu a:hover {
+          text-transform: none;
+          text-decoration: none; }
 
 #breadcrumb-wrapper {
   background: whitesmoke;
