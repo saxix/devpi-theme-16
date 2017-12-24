@@ -1,5 +1,5 @@
-2.0 (dev)
-=========
+2.0 (24 Dec 2017)
+=================
 
 - add ability to login using web interface
 - user can remove (delete) packages from owned indexes
