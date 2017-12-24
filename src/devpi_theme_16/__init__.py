@@ -1,2 +1,2 @@
 NAME = 'devpi-theme-16'
-__version__ = '2.0.0a0'
+__version__ = '2.0.0'
