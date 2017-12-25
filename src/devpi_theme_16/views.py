@@ -35,7 +35,7 @@ def web_login(context, request):
     if request.method == 'POST':
         uname = request.params['username']
         pwd = request.params['password']
-        came_from = request.params.get('came_from', request.url)
+        came_from = request.params.get('redirect_url', request.url)
 
         auth = Auth(context.model, context.model.xom.config.secret)
         cookie = get_cookie_helper(context)

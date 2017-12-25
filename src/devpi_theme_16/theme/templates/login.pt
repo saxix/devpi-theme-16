@@ -6,7 +6,7 @@
 </head>
 <body>
 <metal:header use-macro="request.macros['header']"/>
-<div id="content">
+<div id="content" tal:condition="not identity">
     <p tal:condition="error">${error}</p>
 
     <form method="post">
@@ -20,6 +20,7 @@
                 <td><input type="password" name="password"></td>
             </tr>
         </table>
+        <input type="hidden" name="redirect_url" value="/">
         <input type="submit" value="Login">
     </form>
 </div>
