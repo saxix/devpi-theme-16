@@ -355,6 +355,24 @@ footer {
   padding: 0;
 }
 
+.form-control {
+  input {
+    width: 20px;
+  }
+  line-height: 1em;
+  height: 18px;
+  display: inline-block;
+  font-size: 15px;
+  padding: 6px 12px;
+  color: rgb(140, 140, 140);
+  background-color: rgb(255, 255, 255);
+  background-image: none;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 .search-bar {
   border-left: 1px dashed rgb(201, 201, 201);
   float: right;
@@ -375,23 +393,24 @@ footer {
     width: 100%;
   }
   .form-control {
-    input {
-      width: 20px;
-    }
-    line-height: 1em;
+    //input {
+    //  width: 20px;
+    //}
+    //line-height: 1em;
     height: 30px;
-    display: inline-block;
-    font-size: 15px;
-    width: 100%;
-    padding: 6px 12px;
-    color: rgb(140, 140, 140);
-    background-color: rgb(255, 255, 255);
-    background-image: none;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    //display: inline-block;
+    //font-size: 15px;
+    //width: 100%;
+    //padding: 6px 12px;
+    //color: rgb(140, 140, 140);
+    //background-color: rgb(255, 255, 255);
+    //background-image: none;
+    //border: 1px solid rgb(204, 204, 204);
+    //border-radius: 2px;
+    //box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+    //transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
+
   .views-submit-button, .search-bar #edit-search-api-views-fulltext-wrapper {
     display: inline-block;
   }

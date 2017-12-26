@@ -58,7 +58,7 @@
                         <div class="form-item form-item-search-api-views-fulltext form-type-textfield form-group">
                             <input class="form-control form-text" type="text"
                                    name="query"
-                                   autofocus tal:attributes="value query|None"
+                                     tal:attributes="value query|None"
                                    size="30" maxlength="128" placeholder="Search"></div>
                     </div>
                     <!--?</div>-->
@@ -69,6 +69,11 @@
                         <a href="${request.route_url('search_help')}">help</a>
                     </div>
                 </form>
+                <script>
+                    $(document).ready(function () {
+                        $("input[name='query']").focus();
+                    });
+                </script>
                 <!--?<span class="help">-->
                 <!--?<a href="${request.route_url('search_help')}">help</a>-->
                 <!--?</span>-->

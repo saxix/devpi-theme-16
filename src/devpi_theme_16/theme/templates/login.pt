@@ -13,11 +13,13 @@
         <table class="status">
             <tr>
                 <td>Username</td>
-                <td><input type="text" name="username"></td>
+                <td><input class="form-control form-text" type="text" name="username"></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password"></td>
+                <td><input class="form-control form-text" type="password"
+                           autocomplete="off"
+                           name="password"></td>
             </tr>
         </table>
         <input type="hidden" name="redirect_url" value="/">
@@ -25,5 +27,10 @@
     </form>
 </div>
 <metal:footer use-macro="request.macros['footer']"/>
+<script>
+    $(document).ready(function () {
+        $("input[name='username']").focus();
+    });
+</script>
 </body>
 </html>
