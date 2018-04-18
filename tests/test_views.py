@@ -14,49 +14,30 @@ def clean(text):
     return text.replace('\n', '').strip()
 
 
-@pytest.yield_fixture
-def pyramidconfig():
-    from pyramid.testing import setUp, tearDown
-    from devpi_theme_16.main import includeme
-    config = setUp()
-    includeme(config)
-    yield config
-    tearDown()
+# def test_login_success(testapp2):
+#     r = testapp2.get('/+login', headers=dict(accept="text/html"))
+#     assert r.status_code == 200
+#
+#     r = testapp2.post('/+login',
+#                      params={'username': 'root', 'password': ''})
+#     assert r.status_code == 302
 
 
-@pytest.yield_fixture
-def dummyrequest(pyramidconfig):
-    from pyramid.testing import DummyRequest
-    request = DummyRequest()
-    pyramidconfig.begin(request=request)
-    yield request
+# def test_login_fail(testapp):
+#     r = testapp.get('/+login', headers=dict(accept="text/html"))
+#     assert r.status_code == 200
+#
+#     r = testapp.post('/+login',
+#                      params={'username': 'inv@lid', 'password': ''},
+#                      headers=dict(accept="text/html"))
+#     assert r.status_code == 200
 
 
-def test_login_success(testapp):
-    r = testapp.get('/+login2', headers=dict(accept="text/html"))
-    assert r.status_code == 200
-
-    r = testapp.post('/+login2',
-                     params={'username': 'root', 'password': ''})
-    assert r.status_code == 302
-
-
-def test_login_fail(testapp):
-    r = testapp.get('/+login2', headers=dict(accept="text/html"))
-    assert r.status_code == 200
-
-    r = testapp.post('/+login2',
-                     params={'username': 'inv@lid', 'password': ''},
-                     headers=dict(accept="text/html"))
-    assert r.status_code == 200
-    # assert r.body.index("Invalid credentials")
-
-
-def test_logout(testapp):
-    r = testapp.get('/+logout',
-                    follow=False,
-                    headers=dict(accept="text/html"))
-    assert r.status_code == 302
+# def test_logout(testapp):
+#     r = testapp.get('/+logout',
+#                     follow=False,
+#                     headers=dict(accept="text/html"))
+#     assert r.status_code == 302
 
 
 def test_info_view(testapp):

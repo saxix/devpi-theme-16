@@ -22,7 +22,7 @@
         <div class="navbar-brand">
             <span class="logo"><a href="/" title="Home">devpi</a></span>
             <span class="menu">
-                <a tal:condition="not identity" href="/+login2">Login</a>
+                <a tal:condition="not identity" href="/+login">Login</a>
                 <span tal:condition="identity">
                     <span>Welcome, ${identity}</span> |
                     <a href="/+logout">Logout</a>
