@@ -12,9 +12,6 @@ init = os.path.join(ROOT, 'src', 'devpi_theme_16', '__init__.py')
 
 app = imp.load_source('devpi_theme', init)
 
-reqs = 'install.py%d.pip' % sys.version_info[0]
-
-
 def read(*files):
     content = ''
     for f in files:
@@ -37,6 +34,7 @@ setup(name=app.NAME,
           'devpi_server': [
               "devpi-theme-16 = devpi_theme_16.main"]},
       install_requires=[
+          'devpi-lockdown',
           'devpi-web'],
       include_package_data=True,
       package_dir={'': 'src'},

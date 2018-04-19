@@ -78,9 +78,9 @@ Links
 -----
 
 +--------------------+----------------+--------------+--------------------+
-| Stable             | |master-build| | |master-cov| |                    |
+| Stable             |                | |master-cov| |                    |
 +--------------------+----------------+--------------+--------------------+
-| Development        | |dev-build|    | |dev-cov|    |                    |
+| Development        |                | |dev-cov|    |                    |
 +--------------------+----------------+--------------+--------------------+
 | Project home page: |https://github.com/saxix/devpi-theme-16             |
 +--------------------+----------------+-----------------------------------+
@@ -90,14 +90,9 @@ Links
 +--------------------+----------------+-----------------------------------+
 
 
-.. |master-build| image:: https://secure.travis-ci.org/saxix/devpi-theme-16.png?branch=master
-                    :target: http://travis-ci.org/saxix/devpi-theme-16/
-
 .. |master-cov| image:: https://codecov.io/gh/saxix/devpi-theme-16/branch/master/graph/badge.svg
                     :target: https://codecov.io/gh/saxix/devpi-theme-16
 
-.. |dev-build| image:: https://secure.travis-ci.org/saxix/devpi-theme-16.png?branch=develop
-                  :target: http://travis-ci.org/saxix/devpi-theme-16/
 
 .. |dev-cov| image:: https://codecov.io/gh/saxix/devpi-theme-16/branch/develop/graph/badge.svg
                     :target: https://codecov.io/gh/saxix/devpi-theme-16

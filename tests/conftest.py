@@ -3,9 +3,9 @@ import logging
 from test_devpi_server.conftest import gentmp, httpget, makemapp  # noqa
 from test_devpi_server.conftest import maketestapp, makexom, mapp  # noqa
 from test_devpi_server.conftest import pypiurls, testapp, pypistage  # noqa
-from test_devpi_server.conftest import dummyrequest, pypiurls, testapp  # noqa
+# from test_devpi_server.conftest import dummyrequest, pypiurls, testapp  # noqa
 from test_devpi_server.conftest import storage_info  # noqa
-from test_devpi_server.conftest import mock, pyramidconfig  # noqa
+# from test_devpi_server.conftest import mock, pyramidconfig  # noqa
 import pytest
 
 (makexom,)  # shut up pyflakes
@@ -39,3 +39,28 @@ def xom(request, makexom):
         set_default_indexes(xom.model)
     devpiserver_cmdline_run(xom)
     return xom
+
+#
+# @pytest.yield_fixture
+# def pyramidconfig2():
+#     from pyramid.testing import setUp, tearDown
+#     # from devpi_theme_16.main import includeme as i1
+#     from devpi_lockdown.main import includeme as i2
+#     config = setUp()
+#     i2(config)
+#     # i1(config)
+#     yield config
+#     tearDown()
+#
+#
+# @pytest.yield_fixture
+# def dummyrequest2(pyramidconfig2):
+#     from pyramid.testing import DummyRequest
+#     request = DummyRequest()
+#     pyramidconfig2.begin(request=request)
+#     yield request
+#
+#
+# @pytest.fixture
+# def testapp2(dummyrequest2, maketestapp, xom):
+#     return maketestapp(xom)

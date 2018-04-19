@@ -1,4 +1,3 @@
-from devpi_server.auth import Auth
 from devpi_server.model import UpstreamError
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
@@ -13,39 +12,6 @@ from devpi_theme_16.main import get_cookie_helper, get_index_url, get_version_ur
     renderer="templates/info.pt")
 def infoview(context, request):
     return {}
-
-
-@view_config(
-    route_name="logout",
-    accept="text/html",
-    request_method=["GET", "POST"])
-def logout(context, request):
-    cookie = get_cookie_helper(context)
-    headers = cookie.forget(request)
-    return HTTPFound(location='/', headers=headers)
-
-
-@view_config(
-    route_name="web_login",
-    accept="text/html",
-    request_method=["GET", "POST"],
-    renderer="templates/login.pt")
-def web_login(context, request):
-    error = ""
-    if request.method == 'POST':
-        uname = request.params['username']
-        pwd = request.params['password']
-        came_from = request.params.get('came_from', request.url)
-
-        auth = Auth(context.model, context.model.xom.config.secret)
-        cookie = get_cookie_helper(context)
-
-        proxyauth = auth.new_proxy_auth(uname, pwd)
-        error = "Invalid credentials"
-        if proxyauth:
-            headers = cookie.remember(request, uname)
-            return HTTPFound(location=came_from, headers=headers)
-    return {"error": error}
 
 
 @view_config(

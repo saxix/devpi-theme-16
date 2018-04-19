@@ -3,26 +3,35 @@
 <head>
     <title>Login</title>
     <metal:head use-macro="request.macros['head']"/>
+    <script src="${request.static_url('devpi_web:static/docview.js')}"></script>
+
 </head>
 <body>
 <metal:header use-macro="request.macros['header']"/>
-<div id="content">
-    <p tal:condition="error">${error}</p>
+<div id="content" tal:condition="not identity">
+    <!--?<p tal:condition="error">${error}</p>-->
 
-    <form method="post">
+    <form method="post" name="login">
         <table class="status">
             <tr>
                 <td>Username</td>
-                <td><input type="text" name="username"></td>
+                <td><input class="form-control form-text" type="text" name="username"></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password"></td>
+                <td><input class="form-control form-text" type="password"
+                           autocomplete="off"
+                           name="password"></td>
             </tr>
         </table>
-        <input type="submit" value="Login">
+        <input type="submit" name="submit" value="Login">
     </form>
 </div>
 <metal:footer use-macro="request.macros['footer']"/>
+<script>
+    $(document).ready(function () {
+        $("input[name='username']").focus();
+    });
+</script>
 </body>
 </html>

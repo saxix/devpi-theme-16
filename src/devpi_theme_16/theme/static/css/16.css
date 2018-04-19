@@ -227,6 +227,22 @@ footer {
   margin: 0;
   padding: 0; }
 
+.form-control {
+  line-height: 1em;
+  height: 18px;
+  display: inline-block;
+  font-size: 15px;
+  padding: 6px 12px;
+  color: #8c8c8c;
+  background-color: white;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  .form-control input {
+    width: 20px; }
+
 .search-bar {
   border-left: 1px dashed #c9c9c9;
   float: right;
@@ -244,21 +260,7 @@ footer {
   .search-bar form {
     width: 100%; }
   .search-bar .form-control {
-    line-height: 1em;
-    height: 30px;
-    display: inline-block;
-    font-size: 15px;
-    width: 100%;
-    padding: 6px 12px;
-    color: #8c8c8c;
-    background-color: white;
-    background-image: none;
-    border: 1px solid #cccccc;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.075) 0 1px 1px inset;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
-    .search-bar .form-control input {
-      width: 20px; }
+    height: 30px; }
   .search-bar .views-submit-button, .search-bar .search-bar #edit-search-api-views-fulltext-wrapper {
     display: inline-block; }
 
