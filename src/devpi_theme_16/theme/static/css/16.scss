@@ -38,13 +38,26 @@ header {
   .navbar-brand {
     width: 98%;
     .logo {
-      a {
-        color: white;
-        &:hover {
-          text-transform: none;
-          text-decoration: none;
-        }
+      position: absolute;
+      top: 7px;
+      left: 20px;
+      height: 50px;
+      width: 50px;
+      background-color: white;
+      border-radius: 50%;
+      display: inline-block;
+      img {
+        left: 6px;
+        position: absolute;
+        height: 50px;
       }
+      //a {
+      //  color: white;
+      //  &:hover {
+      //    text-transform: none;
+      //    text-decoration: none;
+      //  }
+      //}
     }
     .menu {
       float: right;
@@ -101,6 +114,12 @@ footer {
   font-size: 12px;
   color: rgb(136, 136, 136);
   text-align: right;
+  .doc {
+    float: left;
+  }
+  .infos {
+    float: right;
+  }
 }
 
 .package-version {

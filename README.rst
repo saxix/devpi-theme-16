@@ -20,6 +20,12 @@ For ``devpi-server`` there is no configuration needed to activate the plugin,
 as it will automatically discover the plugin through calling hooks using the
 setuptools entry points mechanism.
 
+Docker
+------
+
+You can find a ready to use devpi server docker image using this theme at https://github.com/saxix/docker-devpi
+or https://hub.docker.com/r/saxix/devpi/
+
 
 Contribute
 ----------

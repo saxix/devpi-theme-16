@@ -1,5 +1,10 @@
-2.1 (dev)
+2.2 (dev)
 =========
+- add devpi official logo
+- add some links to Server Info page
+
+2.1 (19 Apr 2018)
+=================
 - fixes redirect url
 - use devpi-lockdown to login/logout
 

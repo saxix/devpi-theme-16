@@ -6,13 +6,18 @@
 <metal:footer define-macro="footer">
     <footer>
         <div>
+        <span class="doc">
+
+        </span>
+            <span class="infos">
             Page generated <span class="timestamp">${request.generated_at}</span>
-            <!--?<a href="/+status/">status</a>-->
+                <!--?<a href="/+status/">status</a>-->
             - <a href="/+info/">info</a>
 
             - status: <a class="statusline ${request.status_info.status}"
                          href="${request.status_info.url}">
-                ${request.status_info.short_msg}</a>
+                    ${request.status_info.short_msg}</a>
+        </span>
         </div>
     </footer>
 </metal:footer>
@@ -20,7 +25,10 @@
     <header d="navbar" role="banner" lass="navbar navbar-fixed-top navbar-default container-fluid">
         <!--?<div cass="container">-->
         <div class="navbar-brand">
-            <span class="logo"><a href="/" title="Home">devpi</a></span>
+            <span class="logo">
+                <img src="${request.theme_static_url('img/logo-devpi.svg')}">
+                <!--?<a href="/" title="Home">devpi</a>-->
+            </span>
             <span class="menu">
                 <a tal:condition="not identity" href="/+login">Login</a>
                 <span tal:condition="identity">
