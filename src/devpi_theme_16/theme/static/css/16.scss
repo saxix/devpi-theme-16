@@ -47,17 +47,22 @@ header {
       border-radius: 50%;
       display: inline-block;
       img {
-        left: 6px;
+        left: 1px;
         position: absolute;
         height: 50px;
       }
-      //a {
-      //  color: white;
-      //  &:hover {
-      //    text-transform: none;
-      //    text-decoration: none;
-      //  }
-      //}
+      a {
+        position: absolute;
+        color: white;
+        font-size: 33px;
+        top:13px;
+        left: 65px;
+
+        &:hover {
+          text-transform: none;
+          text-decoration: none;
+        }
+      }
     }
     .menu {
       float: right;
