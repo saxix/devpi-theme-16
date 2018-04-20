@@ -4,7 +4,6 @@ import os
 
 import imp
 
-import sys
 from setuptools import setup, find_packages
 
 ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__)))

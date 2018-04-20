@@ -2,7 +2,7 @@ from devpi_server.model import UpstreamError
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
-from devpi_theme_16.main import get_cookie_helper, get_index_url, get_version_url
+from devpi_theme_16.main import get_index_url, get_version_url
 
 
 @view_config(

@@ -1,6 +1,5 @@
 import os
 from devpi_lockdown.main import devpiserver_get_credentials
-from pyramid.authentication import AuthTktCookieHelper
 from pyramid.events import BeforeRender, subscriber
 
 LAST_PACKAGE_FILE = '_last_package'
@@ -65,44 +64,18 @@ def get_version_url(event=None, context=None, request=None):
         version=context.version)
 
 
-def get_cookie_helper(context):
-    return AuthTktCookieHelper(context.model.xom.config.secret,
-                               cookie_name='auth_tkt',
-                               secure=False,
-                               include_ip=False,
-                               timeout=None,
-                               reissue_time=None,
-                               max_age=None,
-                               http_only=False,
-                               path='/',
-                               wild_domain=True,
-                               hashalg='sha512',
-                               parent_domain=False,
-                               domain=None)
-
-
-def get_logged_user(context, request):
+def get_logged_user(request):
     try:
         return devpiserver_get_credentials(request)[0]
     except:
         return ""
-    # try:
-    #     profile = get_cookie_profile(request)
-    #     if profile:
-    #         return url_unquote( profile.get_value()).split(':')[0]
-    # except AttributeError: # 'HTTPNotFound' object has no attribute 'model'
-    #     pass
-    # except ValueError:
-    #     pass
-    # return ""
 
 
 @subscriber(BeforeRender)
 def add_global(event):
     request = event['request']
     context = event['context']
-    # event.rendering_val['user'] = getattr(context, 'user')
-    identity = get_logged_user(context, request)
+    identity = get_logged_user(request)
     event.rendering_val['identity'] = identity
 
     if request.matched_route:
@@ -125,7 +98,4 @@ def includeme(config):
     config.add_route('infoview', '/+info')
     config.add_route('/{user}', '/{user}')
     config.add_route('remove', '/{user}/{index}/{project}/{version}/+remove')
-    # config.add_route('web_login', '/+login2')
-    # config.add_route('logout', '/+logout')
-
     config.scan()
